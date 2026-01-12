@@ -35,8 +35,11 @@ export type CustomerContext = {
 
 // ---------- API Calls ----------
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 export async function fetchMessages() {
-  const res = await fetch("http://localhost:4000/api/messages");
+  const res = await fetch('${API_URL}/api/messages');
   if (!res.ok) {
     throw new Error("Failed to fetch messages");
   }
@@ -45,7 +48,7 @@ export async function fetchMessages() {
 
 export async function sendReply(messageId: string, content: string) {
   const res = await fetch(
-    `http://localhost:4000/api/messages/${messageId}/reply`,
+    `${API_URL}/api/messages/${messageId}/reply`,
     {
       method: "POST",
       headers: {
@@ -65,7 +68,7 @@ export async function sendReply(messageId: string, content: string) {
 
 export async function claimMessage(messageId: string, agent: string) {
   const res = await fetch(
-    `http://localhost:4000/api/messages/${messageId}/claim`,
+    `${API_URL}/api/messages/${messageId}/claim`,
     {
       method: "POST",
       headers: {
@@ -85,7 +88,7 @@ export async function claimMessage(messageId: string, agent: string) {
 
 export async function fetchConversation(customerId: number) {
   const res = await fetch(
-    `http://localhost:4000/api/messages/customer/${customerId}`
+    `${API_URL}/api/messages/customer/${customerId}`
   );
 
   if (!res.ok) {
@@ -101,7 +104,7 @@ export async function createCustomerMessage(data: {
   customerId: number;
   content: string;
 }) {
-  const res = await fetch("http://localhost:4000/api/messages", {
+  const res = await fetch("${API_URL}/api/messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -127,7 +130,7 @@ export async function searchMessages(params: {
     query.append("customerId", String(params.customerId));
 
   const res = await fetch(
-    `http://localhost:4000/api/messages/search?${query.toString()}`
+    `${API_URL}/api/messages/search?${query.toString()}`
   );
 
   if (!res.ok) {
