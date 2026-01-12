@@ -15,7 +15,6 @@ export type Message = {
   };
 };
 
-
 export type ConversationMessage = {
   id: string;
   content: string;
@@ -24,7 +23,6 @@ export type ConversationMessage = {
   handledBy?: string | null;
 };
 
-
 export type CustomerContext = {
   id: number;
   totalMessages: number;
@@ -32,28 +30,26 @@ export type CustomerContext = {
   assignedAgent: string | null;
 };
 
-
-// ---------- API Calls ----------
+// ---------- API ----------
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-
+// Inbox
 export async function fetchMessages() {
-  const res = await fetch('${API_URL}/api/messages');
+  const res = await fetch(`${API_URL}/api/messages`);
   if (!res.ok) {
     throw new Error("Failed to fetch messages");
   }
   return res.json();
 }
 
+// Reply
 export async function sendReply(messageId: string, content: string) {
   const res = await fetch(
     `${API_URL}/api/messages/${messageId}/reply`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ content }),
     }
   );
@@ -66,14 +62,13 @@ export async function sendReply(messageId: string, content: string) {
   return res.json();
 }
 
+// Claim
 export async function claimMessage(messageId: string, agent: string) {
   const res = await fetch(
     `${API_URL}/api/messages/${messageId}/claim`,
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ agent }),
     }
   );
@@ -86,6 +81,7 @@ export async function claimMessage(messageId: string, agent: string) {
   return res.json();
 }
 
+// Conversation
 export async function fetchConversation(customerId: number) {
   const res = await fetch(
     `${API_URL}/api/messages/customer/${customerId}`
@@ -98,17 +94,14 @@ export async function fetchConversation(customerId: number) {
   return res.json();
 }
 
-
-
+// Customer send message
 export async function createCustomerMessage(data: {
   customerId: number;
   content: string;
 }) {
-  const res = await fetch("${API_URL}/api/messages", {
+  const res = await fetch(`${API_URL}/api/messages`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
 
@@ -119,6 +112,7 @@ export async function createCustomerMessage(data: {
   return res.json();
 }
 
+// Search
 export async function searchMessages(params: {
   q?: string;
   customerId?: number;
@@ -139,4 +133,3 @@ export async function searchMessages(params: {
 
   return res.json();
 }
-
