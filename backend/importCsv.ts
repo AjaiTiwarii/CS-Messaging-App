@@ -1,6 +1,6 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import prisma from "../prisma/client";
+import prisma from "./src/prisma/client";
 
 const CSV_PATH =
   "/home/ajai/Downloads/GeneralistRails_Project_MessageData - GeneralistRails_Project_MessageData.csv";

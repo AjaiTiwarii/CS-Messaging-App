@@ -13,6 +13,13 @@ app.get("/health", (_req, res) => {
   res.json({ status: "ok" });
 });
 
+import { Request, Response } from "express";
+
+app.get("/", (_req: Request, res: Response) => {
+  res.send("Server running");
+});
+
+
 // Message APIs
 app.use("/api/messages", messageRoutes);
 
