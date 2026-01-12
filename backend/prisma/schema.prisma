@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum SenderType {
+  CUSTOMER
+  AGENT
+}
+
+
+model Customer {
+  id        Int      @id
+  createdAt DateTime @default(now())
+  assignedAgent String?
+  messages  Message[]
+}
+
+
+model Message {
+  id         String   @id @default(uuid())
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id])
+  content    String
+  createdAt  DateTime
+
+  senderType  SenderType
+
+  priority        Priority @default(LOW)
+  priorityScore   Int      @default(0)
+  priorityReason  String?
+}
