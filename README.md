@@ -2,7 +2,7 @@
 
 A full-stack **Customer Support Messaging System** that allows multiple agents to collaboratively respond to incoming customer queries in real time.
 
-The system supports message ingestion, prioritization, agent assignment, conversation history, canned responses, and a simple customer interface — all **without authentication**, as required.
+The system supports message ingestion, prioritization, agent assignment, conversation history, canned responses, and a simple customer interface.
 
 ---
 
